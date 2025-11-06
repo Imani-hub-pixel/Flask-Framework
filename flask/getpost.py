@@ -13,11 +13,11 @@ def welcome():
     return render_template('index.html')
 
 
-@app.route("/index")
+@app.route("/index",methods=['GET'])
 def index():
     return "Welcome to the index page"
 
-@app.route('/about')
+@app.route('/about' )
 def about():
     return render_template('about.html')
 

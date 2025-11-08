@@ -10,7 +10,7 @@ jinja 2 template engine.There are multiple wasy to read dat source from backend:
 
 
 #Intergrating html with  flask
-from flask import Flask,render_template,request
+from flask import Flask, redirect,render_template,request, url_for
 '''
 It creates an instance of the flask class, which will be
 your WSGI application.
@@ -32,7 +32,7 @@ def index():
 def about():
     return render_template('about.html')
 
-@app.route('/submit',methods=['GET','POST'])
+@app.route('/submitdemo',methods=['GET','POST'])
 def form():
     if request.method=='POST':
         name=request.form['name']
@@ -74,10 +74,19 @@ def successif(score):
 def fail(score):
     return render_template('result2.html',results=score)
 
-@app.route('/getresults')
-def get_result():
+@app.route('/submit',methods=['POST','GET'])
+def submitres():
+    total_score=0
+    if request.method=='POST':
+        science=float(request.form['science'])
+        maths=float(request.form['maths'])
+        c=float(request.form['c'])
+        data_science=float(request.form['datascience'])
 
+        total_score=(science+maths+c+data_science)/4
 
+        return redirect(url_for('successres',score=total_score))
+    return render_template('getresults.html')
 
 if __name__=="__main__":
     app.run(debug=True)
